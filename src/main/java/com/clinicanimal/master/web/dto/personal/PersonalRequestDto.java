@@ -18,10 +18,6 @@ public record PersonalRequestDto(
         @Size(max = 100, message = "El apellido no puede superar 100 caracteres")
         String apellidoPersonal,
 
-        @NotBlank(message = "La contrasena es obligatoria")
-        @Size(min = 6, message = "La contrasena debe tener al menos 6 caracteres")
-        String contraseña,
-
         @Min(value = 18, message = "La edad minima es 18 anios")
         int edad,
 
