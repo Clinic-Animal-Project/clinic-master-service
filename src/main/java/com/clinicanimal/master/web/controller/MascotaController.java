@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/mascotas")
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class MascotaController {
     private final MascotaService mascotaService;
 
     @GetMapping
-    public ResponseEntity<List<MascotaResponseDto>> listarMascotas() {
-        return ResponseEntity.ok(mascotaService.findAll());
+    public ResponseEntity<List<MascotaResponseDto>> listarMascotas(@RequestParam(required = false) String nombre) {
+        return ResponseEntity.ok(mascotaService.findAll(nombre));
     }
 
     @GetMapping("/{id}")
@@ -45,5 +46,15 @@ public class MascotaController {
         mascotaService.eliminarMascota(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/cliente/{id}")
+    public ResponseEntity<List< MascotaResponseDto>> listarPorCliente(@PathVariable Long id) {
+        return ResponseEntity.ok(mascotaService.listarMascotaPorCliente(id));
+    }
+
+//    @GetMapping("/busqueda")
+//    public ResponseEntity<List< MascotaResponseDto>> listarPorNombre(@RequestParam String nombre) {
+//        return ResponseEntity.ok(mascotaService.listarMascotaPorNombre(nombre));
+//    }
 }
 

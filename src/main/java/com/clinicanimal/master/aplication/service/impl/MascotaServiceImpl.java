@@ -22,8 +22,10 @@ public class MascotaServiceImpl implements MascotaService {
     private final MascotaRepository mascotaRepository;
 
     @Override
-    public List<MascotaResponseDto> findAll() {
-        return mascotaRepository.findAllByActiveTrue()
+    public List<MascotaResponseDto> findAll(String nombre) {
+        String filtro = (nombre == null) ? "" : nombre.trim();
+
+        return mascotaRepository.findAllByNombreFiltro(filtro)
                 .stream()
                 .map(mascotaMapper::toDto)
                 .collect(Collectors.toList());
@@ -55,6 +57,22 @@ public class MascotaServiceImpl implements MascotaService {
         mascota.setActive(false);
         mascotaRepository.save(mascota);
     }
+
+    @Override
+    public List<MascotaResponseDto> listarMascotaPorCliente(Long idCliente) {
+        return mascotaRepository.findAllByClienteIdAndActiveTrue(idCliente)
+                .stream()
+                .map(mascotaMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+//    @Override
+//    public List<MascotaResponseDto> listarMascotaPorNombre(String nombre) {
+//        return mascotaRepository.findAllByNombreAndActiveTrue(nombre)
+//                .stream()
+//                .map(mascotaMapper::toDto)
+//                .collect(Collectors.toList());
+//    }
 
     private Mascota findEntityById(Long id) {
         return mascotaRepository.findByIdAndActiveTrue(id)

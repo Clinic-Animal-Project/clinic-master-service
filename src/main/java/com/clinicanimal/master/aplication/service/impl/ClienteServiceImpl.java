@@ -22,8 +22,10 @@ public class ClienteServiceImpl implements ClienteService {
     private final ClienteRepository clienteRepository;
 
     @Override
-    public List<ClienteResponseDto> findAll() {
-        return clienteRepository.findAllByActiveTrue()
+    public List<ClienteResponseDto> findAll(String nombre) {
+        String filtro = (nombre == null) ? "" : nombre.trim();
+
+        return clienteRepository.findAllByNombreFiltro(filtro)
                 .stream()
                 .map(clienteMapper::toResponse)
                 .collect(Collectors.toList());

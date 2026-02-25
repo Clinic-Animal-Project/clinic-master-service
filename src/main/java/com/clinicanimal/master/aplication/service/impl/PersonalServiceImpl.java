@@ -25,6 +25,7 @@ public class PersonalServiceImpl implements PersonalService {
 
     @Override
     public List<PersonalResponseDto> findAll() {
+
         return personalRepository.findAllByActiveTrue()
                 .stream()
                 .map(personalMapper::toDto)
