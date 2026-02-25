@@ -7,7 +7,7 @@ import com.clinicanimal.master.web.dto.cliente.ClienteUpdateDto;
 import java.util.List;
 
 public interface ClienteService {
-    List<ClienteResponseDto> findAll();
+    List<ClienteResponseDto> findAll(String nombre);
     ClienteResponseDto findById(Long id);
     ClienteResponseDto crearCliente(ClienteRequestDto dto);
     ClienteResponseDto actualizarCliente(Long id, ClienteUpdateDto dto);

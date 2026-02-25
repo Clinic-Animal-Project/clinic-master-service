@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/clientes")
 @RequiredArgsConstructor
@@ -20,8 +21,8 @@ public class ClienteController {
     private final ClienteService clienteService;
 
     @GetMapping
-    public ResponseEntity<List<ClienteResponseDto>> listarClientes() {
-        return ResponseEntity.ok(clienteService.findAll());
+    public ResponseEntity<List<ClienteResponseDto>> listarClientes(@RequestParam(required = false) String nombre) {
+        return ResponseEntity.ok(clienteService.findAll(nombre));
     }
 
     @GetMapping("/{id}")
